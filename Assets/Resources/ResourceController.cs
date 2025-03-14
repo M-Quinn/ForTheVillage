@@ -1,24 +1,27 @@
+using System;
 using System.Collections.Generic;
+using ForTheVillage.Management;
 using ForTheVillage.Village;
 using UnityEngine;
 
-namespace ForTheVillage
+namespace ForTheVillage.Resources
 {
+    /// <summary>
+    /// Handles individual Resource objects
+    /// </summary>
     public class ResourceController : MonoBehaviour
     {
-        private List<VillageController> _villages = new List<VillageController>();
+        public Resource Resource { get; private set; }
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        public void  SetResource(Resource resource)
         {
-
+            //Handle prefab changes
+            switch (resource)
+            {
+                
+            }
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
     }
 }
 
