@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ForTheVillage.Resources;
 using ForTheVillage.Village;
 using UnityEngine;
 
@@ -32,7 +33,8 @@ namespace ForTheVillage.Management
 
         #endregion
 
-        private List<VillageController> _villages = new List<VillageController>();
+        List<VillageController> _villages = new List<VillageController>();
+        List<ResourceController> _resources = new List<ResourceController>();
 
         public void RegisterVillage(VillageController village)
         {
@@ -47,6 +49,29 @@ namespace ForTheVillage.Management
         public List<VillageController> GetVillages()
         {
             return _villages;
+        }
+
+        public void RegisterResource(ResourceController resource)
+        {
+            _resources.Add(resource);
+        }
+
+        public void UnregisterResource(ResourceController resource)
+        {
+            _resources.Remove(resource);
+        }
+
+        void AddResourceRegistrations()
+        {
+            for (int i = 0; i < _villages.Count; i++)
+            {
+                
+            }
+        }
+
+        void RemoveResourceRegistrations()
+        {
+            
         }
 
     }

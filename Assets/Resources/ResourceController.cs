@@ -12,13 +12,44 @@ namespace ForTheVillage.Resources
     public class ResourceController : MonoBehaviour
     {
         public Resource Resource { get; private set; }
+        private Renderer _renderer;
+
+        void Awake()
+        {
+            _renderer = GetComponent<Renderer>();
+            GameManager.Instance.RegisterResource(this);
+        }
 
         public void  SetResource(Resource resource)
         {
+            Resource = resource;
             //Handle prefab changes
-            switch (resource)
+            switch (Resource.ResourceType)
             {
-                
+                case ResourceType.FOOD:
+                    _renderer.material.color = Color.green;
+                    break;
+                case ResourceType.WOOD:
+                    _renderer.material.color = new Color(0.6f, 0.3f, 0.1f);
+                    break;
+                case ResourceType.STONE:
+                    _renderer.material.color = Color.gray;
+                    break;
+            }
+        }
+
+        public int HarvestResource(int harvestAmount)
+        {
+            if (harvestAmount >= Resource.Amount)
+            {
+                GameManager.Instance.UnregisterResource(this);
+                Destroy(gameObject, 0.1f);
+                return Resource.Amount;
+            }
+            else
+            {
+                Resource.Amount -= harvestAmount;
+                return harvestAmount;
             }
         }
 
