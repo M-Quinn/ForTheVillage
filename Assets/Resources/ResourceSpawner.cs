@@ -8,6 +8,7 @@ namespace ForTheVillage.Resources
         [Header("Scene References")] 
         [SerializeField] Transform _spawnGroundTransform;
         [SerializeField] MeshRenderer _spawnGroundRenderer;
+        [SerializeField] private GridController _gridController;
         [Header("External References")]
         [SerializeField] GameObject _resourcePrefab;
 
@@ -27,9 +28,7 @@ namespace ForTheVillage.Resources
             Resource resource = _resourceCreator.GetRandomResource();
             GameObject go = GameObject.Instantiate(_resourcePrefab, resource.SpawnPosition, Quaternion.identity);
 
-            SetTheResource(go, resource);
-            
-            //Send out or whatever for setting up the grid
+            _gridController.AddResource(SetTheResource(go, resource));
         }
         
         /// <summary>
@@ -40,10 +39,8 @@ namespace ForTheVillage.Resources
         {
             Resource resource = _resourceCreator.GetResource(resourceType);
             GameObject go = GameObject.Instantiate(_resourcePrefab, resource.SpawnPosition, Quaternion.identity);
-
-            SetTheResource(go, resource);
             
-            //Send out or whatever for setting up the grid
+            _gridController.AddResource(SetTheResource(go, resource));
         }
 
         /// <summary>
@@ -56,15 +53,14 @@ namespace ForTheVillage.Resources
             Resource resource = _resourceCreator.GetResourceAtPosition(resourceType, position);
             GameObject go = GameObject.Instantiate(_resourcePrefab, resource.SpawnPosition, Quaternion.identity);
 
-            SetTheResource(go, resource);
-            
-            //Send out or whatever for setting up the grid
+            _gridController.AddResource(SetTheResource(go, resource));
         }
         
-        private void SetTheResource(GameObject go, Resource resource)
+        private ResourceController SetTheResource(GameObject go, Resource resource)
         {
             ResourceController rc = go.GetComponent<ResourceController>();
             rc.SetResource(resource);
+            return rc;
         }
     }
 }
