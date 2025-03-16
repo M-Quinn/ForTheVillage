@@ -2,7 +2,7 @@
 <p>
  This Unity 6 God sim game is designed for learning purposes. You can find the <a href="https://github.com/M-Quinn/ForTheVillage/wiki/Design-Document">GDD in the Wiki</a>
 </p>
-<p>Find the dev logs and any documents in <a href="https://github.com/M-Quinn/ForTheVillage/wiki">the Wiki</a></p>
+<p>Find the dev logs and any documents in <a href="https://github.com/M-Quinn/ForTheVillage/wiki/Developer-Logs">the Wiki</a></p>
 <h2>Description</h2>
 <p>This project is an open source project for other developers to learn from or use as a starting point.</p>
 <h3>Planned Systems</h3>
