@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using ForTheVillage.Management;
 using ForTheVillage.Resources;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ public class GridController : MonoBehaviour
 
     private void Awake()
     {
+        GameManager.Instance.RegisterGridController(this);
         InitializeGrid();
     }
 

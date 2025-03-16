@@ -16,9 +16,16 @@ namespace ForTheVillage.Resources
         
         public Resource Resource { get; private set; }
 
+        private GridController _gridController;
+
         void Awake()
         {
             GameManager.Instance.RegisterResource(this);
+        }
+
+        private void Start()
+        {
+            _gridController = GameManager.Instance.GetGridController();
         }
 
         public void  SetResource(Resource resource)
@@ -44,7 +51,7 @@ namespace ForTheVillage.Resources
             if (harvestAmount >= Resource.Amount)
             {
                 GameManager.Instance.UnregisterResource(this);
-                Destroy(gameObject, 0.1f);
+                Die();
                 return Resource.Amount;
             }
             else
@@ -52,6 +59,13 @@ namespace ForTheVillage.Resources
                 Resource.Amount -= harvestAmount;
                 return harvestAmount;
             }
+        }
+
+        [ContextMenu("Die")]
+        void Die()
+        {
+            _gridController.RemoveResource(this);
+            Destroy(gameObject, 0.1f);
         }
 
     }
