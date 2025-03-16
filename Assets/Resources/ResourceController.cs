@@ -11,12 +11,13 @@ namespace ForTheVillage.Resources
     /// </summary>
     public class ResourceController : MonoBehaviour
     {
+        [Header("Internal References")] 
+        [SerializeField] Renderer _renderer;
+        
         public Resource Resource { get; private set; }
-        private Renderer _renderer;
 
         void Awake()
         {
-            _renderer = GetComponent<Renderer>();
             GameManager.Instance.RegisterResource(this);
         }
 

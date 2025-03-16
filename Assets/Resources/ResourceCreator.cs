@@ -6,14 +6,14 @@ using Random = UnityEngine.Random;
 
 namespace ForTheVillage.Resources
 {
-    public class ResourceManager
+    public class ResourceCreator
     {
         Transform _spawnLocation;
         MeshRenderer _spawnLocationRenderer;
         int _amountMax = 50;
         int _amountMin = 5;
         
-        public ResourceManager(Transform spawnLocation, MeshRenderer spawnLocationRenderer)
+        public ResourceCreator(Transform spawnLocation, MeshRenderer spawnLocationRenderer)
         {
             _spawnLocation = spawnLocation;
             _spawnLocationRenderer = spawnLocationRenderer;
@@ -47,6 +47,13 @@ namespace ForTheVillage.Resources
         public Resource GetResource(ResourceType type)
         {
             var position = GetSpawnLocation();
+            int amount = Random.Range(_amountMin, _amountMax);
+            
+            return new Resource(position, type, amount);
+        }
+
+        public Resource GetResourceAtPosition(ResourceType type, Vector3 position)
+        {
             int amount = Random.Range(_amountMin, _amountMax);
             
             return new Resource(position, type, amount);
