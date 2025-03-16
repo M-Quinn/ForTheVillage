@@ -35,6 +35,7 @@ namespace ForTheVillage.Management
 
         List<VillageController> _villages = new List<VillageController>();
         List<ResourceController> _resources = new List<ResourceController>();
+        GridController _gridController;
 
         public void RegisterVillage(VillageController village)
         {
@@ -61,17 +62,14 @@ namespace ForTheVillage.Management
             _resources.Remove(resource);
         }
 
-        void AddResourceRegistrations()
+        public void RegisterGridController(GridController gridController)
         {
-            for (int i = 0; i < _villages.Count; i++)
-            {
-                
-            }
+            _gridController = gridController;
         }
 
-        void RemoveResourceRegistrations()
+        public GridController GetGridController()
         {
-            
+            return _gridController;
         }
 
     }
