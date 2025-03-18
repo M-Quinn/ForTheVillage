@@ -42,10 +42,17 @@ namespace ForTheVillage.Village
             }
         }
 
-        /*void UpdateVillage()
+        void UpdateVillage()
         {
-            if(villagers.Count > level)
-        }*/
+            if (villagers.Count > CalculateMaxVillagers(level, villagersPerLevel, housingCapacity, maxLevel))
+            {
+                GameObject villagerObject = Instantiate(VillagerPrefab, transform.position, Quaternion.identity);
+                VillagerController villager = villagerObject.GetComponent<VillagerController>();
+                villagers.Add(villager);
+                //villager.
+                //Need to setup some strucutre to imbue this reference into the villager so each villager should have a Village reference
+            }
+        }
 
 
         public ResourceController RequestNextResource()
