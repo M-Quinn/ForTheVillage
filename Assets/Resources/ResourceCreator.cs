@@ -26,7 +26,7 @@ namespace ForTheVillage.Resources
             Vector3 min = bounds.min; // Bottom-left corner
             Vector3 max = bounds.max; // Top-right corner
 
-            Debug.Log($"Plane Min: {min}, Max: {max}");
+            //Debug.Log($"Plane Min: {min}, Max: {max}");
 
             
             return new Vector3(
