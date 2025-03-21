@@ -167,6 +167,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &652058286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 652058288}
+  - component: {fileID: 652058287}
+  m_Layer: 0
+  m_Name: Test Village Requests
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &652058287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652058286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68293487603564c4c8556b16bf89d6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  village: {fileID: 1124758342}
+--- !u!4 &652058288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652058286}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.80655813, y: 0.3992883, z: 1.3731999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1026184785
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,8 +458,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e99436f1c2203d449bb6a7c5b70a04b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  searchRadius: 5
-  go: {fileID: 0}
+  VillagerPrefab: {fileID: 0}
+  searchRadius: 1
+  level: 0
+  delayTime: 0
 --- !u!1 &1177750129
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,3 +750,4 @@ SceneRoots:
   - {fileID: 1355197721}
   - {fileID: 133001268}
   - {fileID: 1124758341}
+  - {fileID: 652058288}
