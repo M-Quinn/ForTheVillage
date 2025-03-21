@@ -57,7 +57,10 @@ namespace ForTheVillage.Village
 
         public ResourceController RequestNextResource()
         {
+            //TODO: fix this so that this class determins the resource type
             var resources = _gridController.GetResourcesInRadius(transform.position, searchRadius, ResourceType.FOOD);
+            if (resources.Count == 0)
+                return null;
             return resources[0];
         }
         
