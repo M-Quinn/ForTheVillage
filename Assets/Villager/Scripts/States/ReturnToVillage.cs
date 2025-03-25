@@ -1,4 +1,5 @@
 using System;
+using ForTheVillage.Village;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,10 +8,10 @@ namespace ForTheVillage.Villager
     public class ReturnToVillage: IState
     {
         private Action<string> _logAction;
-        private GameObject _village;
+        private VillageController _village;
         private NavMeshAgent _navMeshAgent;
         
-        public ReturnToVillage(ref GameObject village, NavMeshAgent navMeshAgent, Action<string>logAction)
+        public ReturnToVillage(ref VillageController village, NavMeshAgent navMeshAgent, Action<string>logAction)
         {
             _village = village;
             _navMeshAgent = navMeshAgent;

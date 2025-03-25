@@ -1,29 +1,33 @@
 using System;
+using ForTheVillage.Resources;
+using ForTheVillage.Village;
 using UnityEngine;
 
 namespace ForTheVillage.Villager
 {
     public class WaitForTask : IState
     {
+        private ResourceController _resourceController; 
+        private VillageController _villageController;
         private Action<string> _logAction;
-        public WaitForTask(Action<string>logAction)
+        public WaitForTask(ref ResourceController target, ref VillageController village, Action<string>logAction)
         {
+            _resourceController = target;
+            _villageController = village;
             _logAction = logAction;
         }
 
         public void Enter()
         {
-            _logAction?.Invoke("WaitForTask Enter");
+            _resourceController = _villageController.RequestNextResource();
         }
 
         public void Tick()
         {
-            _logAction?.Invoke("WaitForTask Tick");
         }
 
         public void Exit()
         {
-            _logAction?.Invoke("WaitForTask Exit");
         }
     }
 }

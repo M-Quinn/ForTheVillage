@@ -9,8 +9,9 @@ namespace ForTheVillage.Villager
         private VillageController _villageController;
         private Action<string> _logAction;
         
-        public EmptyInventory(VillagerInventory inventory, Action<string>logAction)
+        public EmptyInventory(ref VillageController villageController, VillagerInventory inventory, Action<string>logAction)
         {
+            _villageController = villageController;
             _inventory = inventory;
             _logAction = logAction;
         }
@@ -22,18 +23,26 @@ namespace ForTheVillage.Villager
             }
             else
             {
-                //pass the inventory to the VillageController
+                if (_inventory.Resource == null)
+                {
+                    _logAction?.Invoke("inventory resource is null");
+                }
+                else
+                {
+                    _villageController.AcceptResource(_inventory.Resource);
+                    _inventory.Resource = null;
+                }
             }
         }
 
         public void Tick()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Exit()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 

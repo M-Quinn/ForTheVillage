@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
 using ForTheVillage.Management;
 using ForTheVillage.Resources;
@@ -65,19 +66,36 @@ namespace ForTheVillage.Village
                 return null;
             return resources[0];
         }
-        
+
+        public void LoadVillage(Village village)
+        {
+            _villageData = village;
+            transform.position = village.Position;
+            //Spawn Villagers
+        }
+
+        public void AcceptResource(Resource resource)
+        {
+            var rec = _villageData.Resources.FirstOrDefault(x => x.ResourceType == resource.ResourceType);
+            if (rec != null)
+            {
+                rec.Amount += resource.Amount;
+            }
+            else
+            {
+                _villageData.Resources.Add(resource);
+            }
+        }
+
+
+
+
+
         int CalculateMaxVillagers(int level, double villagersPerLevel, int housingCapacity, int maxLevel)
         {
             return (int)MathF.Min(housingCapacity, (int)(level * villagersPerLevel));
         }
-
-        public void LoadVillage(Village village)
-        {
-            _villageData = village;    
-            transform.position = village.VillageLocation
-            //Spawn Villagers
-        }
-
+        
         private void OnDrawGizmosSelected() // Use OnDrawGizmosSelected for editor visualization
         {
             Gizmos.color = Color.yellow;
