@@ -16,7 +16,7 @@ namespace ForTheVillage.Villager
         VillagerInventory _inventory = new VillagerInventory();
         VillageController _village;
 
-        StateFacade _stateFacade = new StateFacade();
+        StateFacade _stateFacade;
         IState _waitForTaskState;
         IState _goToResourceState;
         IState _getResourceState;
@@ -25,17 +25,20 @@ namespace ForTheVillage.Villager
 
         void InitFSM()
         {
-            _waitForTaskState = new WaitForTask(ref targetObject, ref _village, Log);
-            _goToResourceState = new GoToResource(_navMesh, ref targetObject, Log);
-            _getResourceState = new GetResource(ref targetObject, _inventory, Log);
-            _returnToVillageState = new ReturnToVillage(ref _village, _navMesh, Log);
-            _emptyInventoryState = new EmptyInventory(ref _village, _inventory, Log);
+            _stateFacade = new();
+            _waitForTaskState = new WaitForTask((x) => targetObject = x, _village, Log);
+            _goToResourceState = new GoToResource(_navMesh, ()=>targetObject, Log);
+            _getResourceState = new GetResource(()=>targetObject, _inventory, Log);
+            _returnToVillageState = new ReturnToVillage(_village, _navMesh, Log);
+            _emptyInventoryState = new EmptyInventory(_village, _inventory, Log);
 
             _stateFacade.AddTransition(_waitForTaskState, _goToResourceState, CheckIfTargetAquired);
             _stateFacade.AddTransition(_goToResourceState, _getResourceState, CheckHasReachedTarget);
             _stateFacade.AddTransition(_getResourceState, _returnToVillageState, CheckIfResourceIsHarvested);
             _stateFacade.AddTransition(_returnToVillageState, _emptyInventoryState, CheckHasReachedVillage);
             _stateFacade.AddTransition(_emptyInventoryState, _waitForTaskState, CheckHasInventory);
+            
+            _stateFacade.SetState(_waitForTaskState);
         }
 
 

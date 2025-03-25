@@ -30,30 +30,30 @@ namespace ForTheVillage.Village
         {
             _gridController = GameManager.Instance.GetGridController();
             delayTimer = delayTime + Time.time;
-            for (int level = 1; level <= 12; level++) // Test levels beyond maxLevel
+            /*for (int level = 1; level <= 12; level++) // Test levels beyond maxLevel
             {
                 int maxVillagers = CalculateMaxVillagers(level, villagersPerLevel, housingCapacity, maxLevel);
                 Debug.Log($"Level {level}: Max Villagers = {maxVillagers}");
-            }
+            }*/
         }
 
         void Update()
         {
             if (Time.time > delayTimer)
             {
-                
+                UpdateVillage();
+                delayTimer = delayTime + Time.time;
             }
         }
 
         void UpdateVillage()
         {
-            if (villagers.Count > CalculateMaxVillagers(level, villagersPerLevel, housingCapacity, maxLevel))
+            if (villagers.Count < CalculateMaxVillagers(level, villagersPerLevel, housingCapacity, maxLevel))
             {
                 GameObject villagerObject = Instantiate(VillagerPrefab, transform.position, Quaternion.identity);
                 VillagerController villager = villagerObject.GetComponent<VillagerController>();
                 villagers.Add(villager);
-                //villager.
-                //Need to setup some strucutre to imbue this reference into the villager so each villager should have a Village reference
+                villager.SetVillage(this);
             }
         }
 
@@ -64,6 +64,11 @@ namespace ForTheVillage.Village
             var resources = _gridController.GetResourcesInRadius(transform.position, searchRadius, ResourceType.FOOD);
             if (resources.Count == 0)
                 return null;
+            else
+            {
+                Debug.Log("Resource was found");
+            }
+
             return resources[0];
         }
 

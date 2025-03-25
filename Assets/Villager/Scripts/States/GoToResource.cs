@@ -7,22 +7,24 @@ namespace ForTheVillage.Villager
 {
     public class GoToResource:IState
     {
+        private ResourceController _resourceController;
         private NavMeshAgent _navMeshAgent;
-        private ResourceController _targetResource;
+        private Func<ResourceController> _getTargetAction;
         
         private Action<string> _logAction;
-        public GoToResource(NavMeshAgent navMeshAgent, ref ResourceController resource, Action<string> logAction)
+        public GoToResource(NavMeshAgent navMeshAgent, Func<ResourceController> getTarget, Action<string> logAction)
         {
             _navMeshAgent = navMeshAgent;
-            _targetResource = resource;
+            _getTargetAction = getTarget;
             _logAction = logAction;
         }
 
         public void Enter()
         {
-            if (_targetResource != null)
+            var _resourceController = _getTargetAction?.Invoke();
+            if (_resourceController != null)
             {
-                _navMeshAgent.SetDestination(_targetResource.Resource.SpawnPosition);
+                _navMeshAgent.SetDestination(_resourceController.Resource.SpawnPosition);
             }
             else
             {
@@ -36,6 +38,7 @@ namespace ForTheVillage.Villager
 
         public void Exit()
         {
+            _resourceController = null;
         }
     }
 }

@@ -7,19 +7,22 @@ namespace ForTheVillage.Villager
     public class GetResource : IState
     {
         private ResourceController _resourceController;
+        private Func<ResourceController> _getResource;
         private VillagerInventory _inventory;
         private Action<string> _logAction;
         private float _delay = 1.0f;
         private float _delayTimer = 0.0f;
         
-        public GetResource(ref ResourceController resourceController, VillagerInventory inventory, Action<string>logAction)
+        public GetResource(Func<ResourceController> getResource, VillagerInventory inventory, Action<string>logAction)
         {
-            _resourceController = resourceController;
+            _getResource = getResource;
             _inventory = inventory;
             _logAction = logAction;
         }
         public void Enter()
         {
+            _resourceController = _getResource?.Invoke();
+            
             if (_resourceController == null)
             {
                 _logAction("ResourceController is null");
@@ -45,6 +48,7 @@ namespace ForTheVillage.Villager
 
         public void Exit()
         {
+            _resourceController = null;
         }
     }
 }

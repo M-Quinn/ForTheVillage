@@ -11,7 +11,7 @@ namespace ForTheVillage.Villager
         private VillageController _village;
         private NavMeshAgent _navMeshAgent;
         
-        public ReturnToVillage(ref VillageController village, NavMeshAgent navMeshAgent, Action<string>logAction)
+        public ReturnToVillage(VillageController village, NavMeshAgent navMeshAgent, Action<string>logAction)
         {
             _village = village;
             _navMeshAgent = navMeshAgent;

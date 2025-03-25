@@ -9,7 +9,7 @@ namespace ForTheVillage.Villager
         private VillageController _villageController;
         private Action<string> _logAction;
         
-        public EmptyInventory(ref VillageController villageController, VillagerInventory inventory, Action<string>logAction)
+        public EmptyInventory(VillageController villageController, VillagerInventory inventory, Action<string>logAction)
         {
             _villageController = villageController;
             _inventory = inventory;
