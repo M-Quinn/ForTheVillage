@@ -18,7 +18,7 @@ namespace ForTheVillage.Village
         GridController _gridController;
         float delayTimer = 0;
 
-        Village _villageData;
+        Village _villageData = new Village();
         
         double villagersPerLevel = 1.75;
         int housingCapacity = 30;

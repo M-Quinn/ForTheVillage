@@ -32,6 +32,7 @@ namespace ForTheVillage.Villager
                 _inventory.Resource = _resourceController.Resource;
                 _inventory.Resource.Amount = 0;
                 _delayTimer = Time.time + _delay;
+                _logAction("Resource Reached, Harvesting now");
             }
         }
 

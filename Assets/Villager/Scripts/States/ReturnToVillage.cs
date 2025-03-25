@@ -7,12 +7,14 @@ namespace ForTheVillage.Villager
 {
     public class ReturnToVillage: IState
     {
+        private Action<bool> _destinationReachedAction;
         private Action<string> _logAction;
         private VillageController _village;
         private NavMeshAgent _navMeshAgent;
         
-        public ReturnToVillage(VillageController village, NavMeshAgent navMeshAgent, Action<string>logAction)
+        public ReturnToVillage(VillageController village, NavMeshAgent navMeshAgent, Action<bool> destinationReachedAction,  Action<string>logAction)
         {
+            _destinationReachedAction = destinationReachedAction;
             _village = village;
             _navMeshAgent = navMeshAgent;
             _logAction = logAction;
@@ -27,11 +29,14 @@ namespace ForTheVillage.Villager
             else
             {
                 _navMeshAgent.SetDestination(_village.transform.position);
+                _logAction?.Invoke("Moving towards village");
             }
         }
 
         public void Tick()
         {
+            if(_navMeshAgent.pathStatus ==  NavMeshPathStatus.PathComplete)
+                _destinationReachedAction?.Invoke(true);
         }
 
         public void Exit()

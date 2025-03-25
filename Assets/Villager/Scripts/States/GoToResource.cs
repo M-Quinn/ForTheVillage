@@ -10,10 +10,13 @@ namespace ForTheVillage.Villager
         private ResourceController _resourceController;
         private NavMeshAgent _navMeshAgent;
         private Func<ResourceController> _getTargetAction;
+        private Action<bool> _destinationReachedAction;
         
         private Action<string> _logAction;
-        public GoToResource(NavMeshAgent navMeshAgent, Func<ResourceController> getTarget, Action<string> logAction)
+        public GoToResource(NavMeshAgent navMeshAgent, Func<ResourceController> getTarget, 
+            Action<bool> destinationReachedAction, Action<string> logAction)
         {
+            _destinationReachedAction = destinationReachedAction;
             _navMeshAgent = navMeshAgent;
             _getTargetAction = getTarget;
             _logAction = logAction;
@@ -25,6 +28,7 @@ namespace ForTheVillage.Villager
             if (_resourceController != null)
             {
                 _navMeshAgent.SetDestination(_resourceController.Resource.SpawnPosition);
+                _logAction?.Invoke("Moving towards resource");
             }
             else
             {
@@ -34,6 +38,8 @@ namespace ForTheVillage.Villager
 
         public void Tick()
         {
+            if(_navMeshAgent.pathStatus ==  NavMeshPathStatus.PathComplete)
+                _destinationReachedAction?.Invoke(true);
         }
 
         public void Exit()

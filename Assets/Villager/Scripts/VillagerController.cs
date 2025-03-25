@@ -27,9 +27,9 @@ namespace ForTheVillage.Villager
         {
             _stateFacade = new();
             _waitForTaskState = new WaitForTask((x) => targetObject = x, _village, Log);
-            _goToResourceState = new GoToResource(_navMesh, ()=>targetObject, Log);
+            _goToResourceState = new GoToResource(_navMesh, () => targetObject, (x) => TargetReached = x, Log);
             _getResourceState = new GetResource(()=>targetObject, _inventory, Log);
-            _returnToVillageState = new ReturnToVillage(_village, _navMesh, Log);
+            _returnToVillageState = new ReturnToVillage(_village, _navMesh, (x) => VillageReached = x, Log);
             _emptyInventoryState = new EmptyInventory(_village, _inventory, Log);
 
             _stateFacade.AddTransition(_waitForTaskState, _goToResourceState, CheckIfTargetAquired);
@@ -90,7 +90,11 @@ namespace ForTheVillage.Villager
 
         public bool CheckHasInventory()
         {
-            if (_inventory.Resource.Amount <= 0)
+            if (_inventory.Resource == null)
+            {
+                return true;
+            }
+            else if (_inventory.Resource.Amount <= 0)
             {
                 return true;
             }
@@ -100,12 +104,13 @@ namespace ForTheVillage.Villager
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<ResourceController>(out ResourceController resource) == targetObject)
+            Debug.Log("Trigger Entered");
+            if (other.transform.parent.TryGetComponent<ResourceController>(out ResourceController resource) == targetObject)
             {
                 TargetReached = true;
             }
 
-            if (other.TryGetComponent<VillageController>(out VillageController village) == _village)
+            if (other.transform.parent.TryGetComponent<VillageController>(out VillageController village) == _village)
             {
                 VillageReached = true;
             }

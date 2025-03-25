@@ -31,6 +31,7 @@ namespace ForTheVillage.Villager
                 {
                     _villageController.AcceptResource(_inventory.Resource);
                     _inventory.Resource = null;
+                    _logAction?.Invoke("Emptied inventory to village");
                 }
             }
         }

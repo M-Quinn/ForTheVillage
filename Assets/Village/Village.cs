@@ -7,9 +7,9 @@ namespace ForTheVillage.Village
     public class Village
     {
         public List<Resource> Resources = new List<Resource>();
-        public int Level;
+        public int Level = 1;
         public Vector3 Position;
-        public int TotalVillagers;
+        public int TotalVillagers = 1;
 
         public Village(List<Resource> resources, int level, Vector3 position, int totalVillagers)
         {
@@ -17,6 +17,10 @@ namespace ForTheVillage.Village
             Level = level;
             Position = position;
             TotalVillagers = totalVillagers;
+        }
+
+        public Village()
+        {
         }
     }
 }
