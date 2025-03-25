@@ -7,24 +7,73 @@ namespace ForTheVillage.Villager
 {
     public class StateFacade
     {
-        private IState _curState;
+        IState _currentState;
+        Dictionary<Type, List<Transition>> _transitions = new Dictionary<Type, List<Transition>>();
+        List<Transition> _currentTransitions = new List<Transition>();
+        static List<Transition> _emptyTransitions = new List<Transition>();
 
-        public void ChangeState(IState state)
+        private class Transition
         {
-            if (_curState != null)
+            public Func<bool> Condition { get; }
+            public IState To { get; }
+
+            public Transition(IState to, Func<bool> condition)
             {
-                _curState.Exit();
+                To = to;
+                Condition = condition;
             }
-            _curState = state;
-            _curState.Enter();
         }
 
         public void Execute()
         {
-            if (_curState != null)
+            var transition = GetTransition();
+            if (transition != null)
             {
-                _curState.Tick();
+                SetState(transition.To);
             }
+
+            _currentState?.Tick();
+        }
+
+        public void SetState(IState state)
+        {
+            if (state == _currentState)
+                return;
+
+            _currentState?.Exit();
+
+            _currentState = state;
+            _transitions.TryGetValue(_currentState.GetType(), out _currentTransitions);
+            if (_currentTransitions == null)
+            {
+                _currentTransitions = _emptyTransitions;
+            }
+
+            _currentState.Enter();
+        }
+
+        public void AddTransition(IState from, IState to, Func<bool> condition)
+        {
+            if (this._transitions.TryGetValue(from.GetType(), out var _transitions) == false)
+            {
+                _transitions = new List<Transition>();
+                this._transitions[from.GetType()] = _transitions;
+            }
+
+            _transitions.Add(new Transition(to, condition));
+        }
+
+        Transition GetTransition()
+        {
+            foreach (var transition in _currentTransitions)
+            {
+                if (transition.Condition())
+                {
+                    return transition;
+                }
+            }
+
+            return null;
         }
     }
 }
