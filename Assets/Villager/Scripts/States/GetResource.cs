@@ -41,8 +41,6 @@ namespace ForTheVillage.Villager
                 _inventory.Resource.Amount = _resourceController.HarvestResource(5);
                 _delayTimer = Time.time + _delay;
             }
-            _delayTimer += Time.deltaTime;
-            
         }
 
         public void Exit()
