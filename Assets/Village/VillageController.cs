@@ -16,6 +16,8 @@ namespace ForTheVillage.Village
         [SerializeField] float delayTime;
         GridController _gridController;
         float delayTimer = 0;
+
+        Village _villageData;
         
         double villagersPerLevel = 1.75;
         int housingCapacity = 30;
@@ -68,7 +70,14 @@ namespace ForTheVillage.Village
         {
             return (int)MathF.Min(housingCapacity, (int)(level * villagersPerLevel));
         }
-        
+
+        public void LoadVillage(Village village)
+        {
+            _villageData = village;    
+            transform.position = village.VillageLocation
+            //Spawn Villagers
+        }
+
         private void OnDrawGizmosSelected() // Use OnDrawGizmosSelected for editor visualization
         {
             Gizmos.color = Color.yellow;
