@@ -51,7 +51,6 @@ namespace ForTheVillage.Villager
         public void Exit()
         {
             _resourceController = null;
-            _logAction?.Invoke("<- Get Resource State");
         }
     }
 }

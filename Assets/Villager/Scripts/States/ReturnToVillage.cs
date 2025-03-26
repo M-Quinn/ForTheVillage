@@ -38,7 +38,6 @@ namespace ForTheVillage.Villager
         {
             if (_navMeshAgent.remainingDistance <= 0)
             {
-                _logAction?.Invoke("Returned to village");
                 _destinationReachedAction?.Invoke(true);
             }
 
@@ -48,7 +47,6 @@ namespace ForTheVillage.Villager
         public void Exit()
         {
             _navMeshAgent.ResetPath();
-            _logAction?.Invoke("<- Return To Village State");
         }
     }
 }

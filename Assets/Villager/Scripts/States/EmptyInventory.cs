@@ -44,7 +44,6 @@ namespace ForTheVillage.Villager
 
         public void Exit()
         {
-            _logAction?.Invoke("<- Empty Inventory State");
         }
     }
 

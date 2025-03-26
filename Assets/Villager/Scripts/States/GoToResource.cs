@@ -29,7 +29,6 @@ namespace ForTheVillage.Villager
             if (_resourceController != null)
             {
                 _navMeshAgent.SetDestination(_resourceController.Resource.SpawnPosition);
-                _logAction?.Invoke("Moving towards resource");
             }
             else
             {
@@ -41,7 +40,6 @@ namespace ForTheVillage.Villager
         {
             if (_navMeshAgent.remainingDistance <=0)
             {
-                _logAction?.Invoke("Path Complete");
                 _destinationReachedAction?.Invoke(true);
             }
         }
@@ -50,7 +48,6 @@ namespace ForTheVillage.Villager
         {
             _resourceController = null;
             _navMeshAgent.ResetPath();
-            _logAction?.Invoke("<- Go To Resource State");
         }
     }
 }

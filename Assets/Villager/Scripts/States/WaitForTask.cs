@@ -25,9 +25,6 @@ namespace ForTheVillage.Villager
 
         public void Enter()
         {
-            /*_resourceController = _villageController.RequestNextResource();
-            if (_resourceController != null)
-                _updateTargetAction(_resourceController);*/
             _delayTimer = _delay + Time.time;
             _logAction("-> Enter Wait For Task");
         }
@@ -57,7 +54,6 @@ namespace ForTheVillage.Villager
         public void Exit()
         {
             _resourceController = null;
-            _logAction?.Invoke("<- Wait For Task State");
         }
     }
 }
