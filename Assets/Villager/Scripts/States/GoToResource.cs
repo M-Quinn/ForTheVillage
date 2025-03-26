@@ -24,6 +24,7 @@ namespace ForTheVillage.Villager
 
         public void Enter()
         {
+            _logAction?.Invoke("-> Go To Resource State");
             var _resourceController = _getTargetAction?.Invoke();
             if (_resourceController != null)
             {
@@ -38,13 +39,18 @@ namespace ForTheVillage.Villager
 
         public void Tick()
         {
-            if(_navMeshAgent.pathStatus ==  NavMeshPathStatus.PathComplete)
+            if (_navMeshAgent.remainingDistance <=0)
+            {
+                _logAction?.Invoke("Path Complete");
                 _destinationReachedAction?.Invoke(true);
+            }
         }
 
         public void Exit()
         {
             _resourceController = null;
+            _navMeshAgent.ResetPath();
+            _logAction?.Invoke("<- Go To Resource State");
         }
     }
 }

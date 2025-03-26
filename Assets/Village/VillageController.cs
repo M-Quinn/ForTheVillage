@@ -66,7 +66,7 @@ namespace ForTheVillage.Village
                 return null;
             else
             {
-                Debug.Log("Resource was found");
+                //Debug.Log("Resource was found");
             }
 
             return resources[0];

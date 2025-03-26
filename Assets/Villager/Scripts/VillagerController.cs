@@ -34,6 +34,7 @@ namespace ForTheVillage.Villager
 
             _stateFacade.AddTransition(_waitForTaskState, _goToResourceState, CheckIfTargetAquired);
             _stateFacade.AddTransition(_goToResourceState, _getResourceState, CheckHasReachedTarget);
+            _stateFacade.AddTransition(_goToResourceState, _returnToVillageState, CheckIfResourceIsHarvested); //If another resource is gone return home
             _stateFacade.AddTransition(_getResourceState, _returnToVillageState, CheckIfResourceIsHarvested);
             _stateFacade.AddTransition(_returnToVillageState, _emptyInventoryState, CheckHasReachedVillage);
             _stateFacade.AddTransition(_emptyInventoryState, _waitForTaskState, CheckHasInventory);
@@ -69,11 +70,23 @@ namespace ForTheVillage.Villager
 
         public bool CheckHasReachedTarget()
         {
+            if (TargetReached)
+            {
+                TargetReached = false;
+                return true;
+            }
+
             return TargetReached;
         }
 
         public bool CheckHasReachedVillage()
         {
+            if (VillageReached)
+            {
+                VillageReached = false;
+                return true;
+            }
+            
             return VillageReached;
         }
 

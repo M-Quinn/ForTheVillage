@@ -13,7 +13,7 @@ namespace ForTheVillage.Villager
         
         private ResourceController _resourceController;
 
-        private float _delay = 1.0f;
+        private float _delay = 2.0f;
         private float _delayTimer = 0.0f;
         
         public WaitForTask(Action<ResourceController> updateTarget, VillageController village, Action<string>logAction)
@@ -25,11 +25,11 @@ namespace ForTheVillage.Villager
 
         public void Enter()
         {
-            _resourceController = _villageController.RequestNextResource();
+            /*_resourceController = _villageController.RequestNextResource();
             if (_resourceController != null)
-                _updateTargetAction(_resourceController);
+                _updateTargetAction(_resourceController);*/
             _delayTimer = _delay + Time.time;
-            _logAction("Enter Wait For Task");
+            _logAction("-> Enter Wait For Task");
         }
 
         public void Tick()
@@ -40,6 +40,10 @@ namespace ForTheVillage.Villager
                 {
                     _logAction("request resource controller");
                     _resourceController = _villageController.RequestNextResource();
+                    if (_resourceController == null)
+                    {
+                        _logAction?.Invoke("request resource controller failed");
+                    }
                 }//Don't change this, if is null assign, if now not null send out
                 if (_resourceController != null)
                 {
@@ -53,6 +57,7 @@ namespace ForTheVillage.Villager
         public void Exit()
         {
             _resourceController = null;
+            _logAction?.Invoke("<- Wait For Task State");
         }
     }
 }

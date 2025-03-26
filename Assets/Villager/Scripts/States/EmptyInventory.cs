@@ -17,6 +17,7 @@ namespace ForTheVillage.Villager
         }
         public void Enter()
         {
+            _logAction?.Invoke("-> Empty Inventory State");
             if (_villageController == null)
             {
                 _logAction?.Invoke("village Controller is null");
@@ -43,7 +44,7 @@ namespace ForTheVillage.Villager
 
         public void Exit()
         {
-            
+            _logAction?.Invoke("<- Empty Inventory State");
         }
     }
 

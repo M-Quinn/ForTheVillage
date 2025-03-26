@@ -70,7 +70,6 @@ public class GridController : MonoBehaviour
 
     public List<ResourceController> GetResourcesInRadius(Vector3 villagePosition, int radius, ResourceType type)
     {
-        Debug.Log("Radius="+radius);
         Vector2Int center = GetGridPosition(villagePosition);
         List<ResourceController> foundResources = new List<ResourceController>();
 

@@ -24,6 +24,14 @@ namespace ForTheVillage.Resources.Test
             {
                 SpawnResourceAtPosition(ResourceType.WOOD, new Vector3(1,0,3));
             }
+
+            if (Keyboard.current.numpad4Key.wasPressedThisFrame)
+            {
+                for (int i = 0; i < 50; i++)
+                {
+                    SpawnResource(ResourceType.FOOD);
+                }
+            }
         }
     }
 }
