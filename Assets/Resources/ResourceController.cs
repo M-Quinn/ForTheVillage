@@ -64,10 +64,19 @@ namespace ForTheVillage.Resources
         [ContextMenu("Die")]
         void Die()
         {
-            _gridController.RemoveResource(this);
             Destroy(gameObject, 0.1f);
         }
 
+        //Added this way so that the project can easily be tested by just deleting go from the hierarchy
+        void RemoveSelfFromGrid()
+        {
+            _gridController.RemoveResource(this);
+        }
+
+        private void OnDestroy()
+        {
+            RemoveSelfFromGrid();
+        }
     }
 }
 

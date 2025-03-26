@@ -21,6 +21,7 @@ namespace ForTheVillage.Villager
         }
         public void Enter()
         {
+            _logAction?.Invoke("-> Get Resource State");
             _resourceController = _getResource?.Invoke();
             
             if (_resourceController == null)

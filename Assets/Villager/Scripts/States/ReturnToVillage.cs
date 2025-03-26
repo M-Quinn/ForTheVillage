@@ -22,6 +22,7 @@ namespace ForTheVillage.Villager
         
         public void Enter()
         {
+            _logAction?.Invoke("-> Return To Village State");
             if (_village == null)
             {
                 _logAction("No Village found");
@@ -35,12 +36,17 @@ namespace ForTheVillage.Villager
 
         public void Tick()
         {
-            if(_navMeshAgent.pathStatus ==  NavMeshPathStatus.PathComplete)
+            if (_navMeshAgent.remainingDistance <= 0)
+            {
                 _destinationReachedAction?.Invoke(true);
+            }
+
+            
         }
 
         public void Exit()
         {
+            _navMeshAgent.ResetPath();
         }
     }
 }
